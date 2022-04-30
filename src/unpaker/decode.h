@@ -1,7 +1,7 @@
 #pragma once
 
 #ifdef _WIN64
-#error "not available in 64-bit mode"
+#error "Not available in 64-bit mode"
 #endif
 
 #define _BYTE uint8_t
@@ -81,7 +81,7 @@ char *decode_f1(char *input, int size, char *output)
                 if (result == v4)
                     break;
             }
-            if ((uint8_t)input & 1)
+            if ((uint8_t)(size_t)input & 1)
             {
                 v8 = (uint8_t)*result;
                 v9 = (uint8_t)result[1];
@@ -181,7 +181,7 @@ int decode_f3(char *input, int size, char *output)
     char *v11;        // ebx@2
     uint16_t v12;     // ax@3
     uint8_t v13;      // cl@4
-    __int16 v14;      // ax@6
+    int16_t v14;      // ax@6
     unsigned int v15; // esi@6
     void *v16;        // edi@7
     int v17;          // ebp@7
