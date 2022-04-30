@@ -1,6 +1,7 @@
 /*
  * AIM 1 unpaker
  * Copyright (C) 2015 lzwdgc
+ * Copyright (C) 2022 streef
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,6 +23,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include <iostream>
+#include <filesystem>
 
 #include "decode.h"
 
@@ -50,8 +52,10 @@ void record::load(FILE *f)
 void record::write(string name, const vector<char> &data) const
 {
     name += "\\" + string(this->name);
-    string dir = name.substr(0, name.rfind('\\'));
-    system(string("mkdir " + dir + " 2> nul").c_str());
+    replace(name.begin(), name.end(), '\\', '/');
+    string dir = name.substr(0, name.rfind('/'));
+    filesystem::create_directories(dir);
+    system(string("mkdir " + dir + " 2> error.txt").c_str());
     FILE *f = fopen(name.c_str(), "wb");
     if (!f)
         return;
