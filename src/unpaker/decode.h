@@ -4,6 +4,10 @@
 #error "Not available in 64-bit mode"
 #endif
 
+#ifdef __GNUC__
+#include <cstring>
+#endif
+
 #define _BYTE uint8_t
 #define _WORD uint16_t
 #define _DWORD uint32_t
