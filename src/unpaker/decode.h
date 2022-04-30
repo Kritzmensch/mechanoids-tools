@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef _WIN64
+#ifdef __LP64__ || _WIN64
 #error "Not available in 64-bit mode"
 #endif
 
