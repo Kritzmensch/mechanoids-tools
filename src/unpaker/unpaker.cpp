@@ -1,6 +1,7 @@
 /*
  * AIM 1 unpaker
  * Copyright (C) 2015 lzwdgc
+ * Copyright (C) 2015 streef
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,9 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <iostream>
-
 #include "pak.h"
+
+#include <iostream>
 
 void unpak(string fn)
 {
@@ -30,7 +31,7 @@ void unpak(string fn)
 
     auto unpack = [&](auto &file)
     {
-        cout << "Unpacking " << file.name << "\n";
+        cout << "Unpacking  " << "\"" + file.name + "\"" << "\n";
         vector<char> buf(file.len);
         file.read(&p, &buf[0], file.len);
         file.write(fn + ".dir", buf);

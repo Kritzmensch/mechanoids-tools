@@ -19,13 +19,15 @@
 
 #include "pak.h"
 
+#include "decode.h"
+#include <filesystem.h>
+
+#include <boost/locale.hpp>
+
 #include <algorithm>
 #include <assert.h>
-#include <stdio.h>
 #include <iostream>
-#include <filesystem>
-
-#include "decode.h"
+#include <stdio.h>
 
 #define FREAD(var) fread(&var, 1, sizeof(var), f)
 
@@ -44,7 +46,8 @@ void record::load(FILE *f)
 {
     char n[0x50];
     FREAD(n);
-    name = n;
+    // Convert Windows-1251 (Cyrillic) codepage to UTF-8.
+    name = boost::locale::conv::to_utf<char>(n,"windows-1251");
     FREAD(pos);
     FREAD(len);
 }
@@ -54,7 +57,7 @@ void record::write(string name, const vector<char> &data) const
     name += "\\" + string(this->name);
     replace(name.begin(), name.end(), '\\', '/');
     string dir = name.substr(0, name.rfind('/'));
-    filesystem::create_directories(dir);
+    fs::create_directories(dir);
     system(string("mkdir " + dir + " 2> error.txt").c_str());
     FILE *f = fopen(name.c_str(), "wb");
     if (!f)

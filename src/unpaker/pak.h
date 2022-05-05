@@ -1,6 +1,7 @@
 /*
  * AIM 1 unpaker
  * Copyright (C) 2015 lzwdgc
+ * Copyright (C) 2022 streef
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,7 +41,7 @@ struct header
 
 struct record
 {
-    std::string name;
+    string name;
     uint32_t pos;
     uint32_t len;
 
